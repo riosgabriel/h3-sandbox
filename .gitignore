@@ -1,0 +1,11 @@
+.vscode/
+.idea/
+*.iml
+
+build/
+dist/
+node_modules/
+
+*.log
+
+*.tmp
