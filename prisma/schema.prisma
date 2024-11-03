@@ -6,3 +6,29 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Worker {
+  id           String       @id @default(cuid())
+  name         String
+  locationH3   String
+  skills       Json
+  availability Json
+  assignments  Assignment[]
+}
+
+model Workplace {
+  id              String       @id @default(cuid())
+  name            String
+  locationH3      String
+  servicesOffered Json
+  assignments     Assignment[]
+}
+
+model Assignment {
+  id           String    @id @default(cuid())
+  worker       Worker    @relation(fields: [workerId], references: [id])
+  workerId     String
+  workplace    Workplace @relation(fields: [workplaceId], references: [id])
+  workplaceId  String
+  assignedTime DateTime  @default(now())
+}
